@@ -73,7 +73,11 @@ stdenv.mkDerivation {
     mv node_modules $out/node_modules
 
     wrapProgram $out/bin/vp \
+      --inherit-argv0 \
       --prefix PATH : ${lib.makeBinPath [ nodejs ]}
+
+    ln -s vp $out/bin/vpr
+    ln -s vp $out/bin/vpx
 
     runHook postInstall
   '';
